@@ -35,6 +35,25 @@ Total events found: 1188
 JSON saved to /runtime/cse-ownership_2021-10-11_to_2021-10-18.json
 ```
 
+### Notes
+
+While CSV output is supported, it's rudementary right now as it folds all the content fields into a single column.
+
+```
+❯ docker run --rm -it -e SNYK_TOKEN -v "${PWD}"/file_output:/runtime snyk-audit-to-csv:latest org cse-ownership --csv
+Total events found: 1188
+CSV saved to /runtime/cse-ownership_2021-10-11_to_2021-10-18.csv
+❯ head -n 4 file_output/cse-ownership_2021-10-11_to_2021-10-18.csv
+```
+|FIELD1                                                          |groupId|orgId                               |userId                              |projectId|event     |content                                                                                                             |created                 |
+|----------------------------------------------------------------|-------|------------------------------------|------------------------------------|---------|----------|--------------------------------------------------------------------------------------------------------------------|------------------------|
+|0                                                               |36863d40-ba29-491f-af63-7a1a7d79e411|da450e98-1581-4cd1-a4fc-06a3b76f5004|b7f4b234-e888-4054-8532-0d7e3a2ec690|         |api.access|{'url': '/api/v1/org/da450e98-1581-4cd1-a4fc-06a3b76f5004/audit?from=2021-10-03&to=2021-10-10&sortOrder=ASC&page=1'}|2021-10-11T08:50:14.558Z|
+|1                                                               |36863d40-ba29-491f-af63-7a1a7d79e411|da450e98-1581-4cd1-a4fc-06a3b76f5004|b7f4b234-e888-4054-8532-0d7e3a2ec690|         |api.access|{'url': '/api/v1/org/da450e98-1581-4cd1-a4fc-06a3b76f5004/audit?from=2021-10-03&to=2021-10-10&sortOrder=ASC&page=2'}|2021-10-11T08:50:16.280Z|
+|2                                                               |36863d40-ba29-491f-af63-7a1a7d79e411|da450e98-1581-4cd1-a4fc-06a3b76f5004|b7f4b234-e888-4054-8532-0d7e3a2ec690|         |api.access|{'url': '/api/v1/org/da450e98-1581-4cd1-a4fc-06a3b76f5004/audit?from=2021-10-03&to=2021-10-10&sortOrder=ASC&page=3'}|2021-10-11T08:50:16.542Z|
+
+
+
+
 ### Help Output
 
 ```
