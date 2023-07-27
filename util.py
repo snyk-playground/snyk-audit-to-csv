@@ -52,9 +52,10 @@ def get_snyk_pages(client: SnykClient, path: str, body: Dict, per_page:int = 250
         all_pages.extend(first_query)
         next_page = 2
 
-        while 'next' in first_resp.links:
+        while 'event'.encode() in first_resp.content:
             first_resp = client.post(f'{path}&page={next_page}', body)
             all_pages.extend(first_resp.json())
+            print(f"Processing page {next_page}")
             next_page+=1
 
     else:
@@ -74,5 +75,4 @@ def get_snyk_pages(client: SnykClient, path: str, body: Dict, per_page:int = 250
             for k in list_resp:
                 all_pages[k].extend(next_query[k]) 
     
-
     return all_pages

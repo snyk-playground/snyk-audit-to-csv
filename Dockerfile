@@ -32,6 +32,9 @@ COPY --from=requirements /src/requirements.txt .
 # now we're *just* deploying the needed packages for whatever was in the poetry setup
 RUN python -m pip install --quiet -U pip
 RUN pip install --quiet -r requirements.txt
+RUN pip install typer
+RUN pip install pandas
+RUN pip install pysnyk
 
 COPY scripts/* /usr/local/bin/
 
