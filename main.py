@@ -68,6 +68,7 @@ def org(
     save_csv: bool = typer.Option(False,'--csv', help="Save a CSV to local directory"),
     save_json: bool = typer.Option(False,'--json', help="Save a JSON file to local directory"),
     output_dir: Path = typer.Option(Path.cwd(), dir_okay=True,writable=True, help="Local directory save files"),
+    excludeevent: str = typer.Option("", help="Exclude an event of this specific type (e.g. api.access) NOTE: This cannot be used in conjunction with --event"),
     events: Optional[List[str]] = typer.Option(
         [],
         '--event',
@@ -100,7 +101,8 @@ def org(
     body = {
         "filters": {
         "userId": user_id,
-        "projectId": project_id
+        "projectId": project_id,
+        "excludeEvent": excludeevent
         }
     }
     
@@ -109,6 +111,7 @@ def org(
 
     path = f'org/{org_id}/audit?&sortOrder=ASC&from={start_date}&to={end_date}'
 
+    print(f"Processing page 1")
     results = get_snyk_pages(client,path,body)
 
     print(f"Total events found: {len(results)}")
@@ -141,6 +144,7 @@ def group(
     save_csv: bool = typer.Option(False,'--csv', help="Save a CSV to local directory"),
     save_json: bool = typer.Option(False,'--json', help="Save a JSON file to local directory"),
     output_dir: Path = typer.Option(Path.cwd(), dir_okay=True,writable=True, help="Local directory save files"),
+    excludeevent: str = typer.Option("", help="Exclude an event of this specific type (e.g. api.access) NOTE: This cannot be used in conjunction with --event"),
     events: Optional[List[str]] = typer.Option(
         [],
         '--event',
@@ -176,7 +180,8 @@ def group(
     body = {
         "filters": {
         "userId": user_id,
-        "projectId": project_id
+        "projectId": project_id,
+        "excludeEvent": excludeevent
         }
     }
 
@@ -185,6 +190,7 @@ def group(
 
     path = f'group/{group_id}/audit?&sortOrder=ASC&from={start_date}&to={end_date}'
 
+    print(f"Processing page 1")
     results = get_snyk_pages(client,path,body)
 
     print(f"Total events found: {len(results)}")
